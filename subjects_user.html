@@ -1,0 +1,72 @@
+{% extends 'subjects.html' %}
+
+{% load staticfiles %}
+
+<style>
+
+.body
+{
+		background-image:url('static/background.JPG');
+		background-repeat:no-repeat;
+		background-size:100%;
+}
+
+</style>
+
+<img src='{% static "background.JPG" %}' alt="My background">
+
+{% block content %}
+
+	<a class="navbar-brand" href="{% url 'summary' %}?username={{username}}">Summary</a>
+	<span class="navbar-brand"> Hello, <span id = "username">{{first_name}}</span>.</span>
+
+{% endblock %}
+
+{% block subjects %}
+
+	
+	<link rel="stylesheet" href="{{ STATIC_URL }}webapp/style.css">
+	<p> {{ STATIC_URL }} </p>
+	<div id = "subjectForm" style="padding-top: 180px; padding-left: -2px;">
+		<form action="{% url 'takeSubjects' %}?username={{username}}" method="POST">	
+			{% csrf_token %}
+				<div class="col-xs-6">
+			    	<label for="ex3" style="padding-left: 150px;">Subjects</label>
+			    	<input class="form-control" id="ex3" type="text" name = "subject">
+			    	<label for="ex3" style="padding-left: 150px;">Threshold</label>
+			    	<input class="form-control" id="ex2" type="number" name = "threshold">
+		  		</div>
+		  		<div id = "buttons" style = "padding-left: 30px;">
+		  			<input type="submit" class="btn btn-primary" value = "Add Subject" onclick = "submitForm()">
+		  			<input type="button" class="btn btn-success" value = "Finish">
+		  			<input type="submit" class="btn btn-success" value = "Change threshold">
+		  		</div>
+		  		<br>
+	  	</form>
+  	</div>
+  	
+{% endblock %}
+
+<!--<script type="text/javascript">
+  		
+  		alert("Performing javascript");
+  		var userName = $("#username").val();
+  		alert(userName);
+  		$(function
+  		{
+		     $('form').on('submit', function(e){
+		         e.preventDefault();
+		         alert('Adding subject..')
+		         $.ajax({
+		             url: $(this).attr('action'),
+		             method: $(this).attr('method'),
+		             data: userName,
+		             success: function(data){ $('#target').html(data) }
+		         });
+		     });
+
+		     $("#subjectForm")[0].reset();
+		});
+
+
+  	</script>-->
